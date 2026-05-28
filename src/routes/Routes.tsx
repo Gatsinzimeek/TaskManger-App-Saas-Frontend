@@ -4,6 +4,7 @@ import Login from '../pages/Login';
 import { AppRoutesUrl } from '../utility/AppRoutesUrl';
 import Register from '../pages/Register';
 import PageNotFound from '../pages/NotFound';
+import Forgetpassword from '../pages/Forgetpassword';
 
 const RootContainer =  [
     {
@@ -15,7 +16,14 @@ const RootContainer =  [
         url:AppRoutesUrl.Register,
         component: <Register />,
         exact: true,
-    }
+    },
+    {
+        url:AppRoutesUrl.ForgetPassword,
+        component: <Forgetpassword />,
+        exact: true,
+    },
+    
+
 ]
 
 const AppRoutes: FC = () => {
