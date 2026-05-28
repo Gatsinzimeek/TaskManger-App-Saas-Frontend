@@ -3,7 +3,7 @@ const Login: React.FC = () => {
   
 
   return (
-    <div>Login</div>
+    <div className=' text-2xl'>Login</div>
 
   )
 }
