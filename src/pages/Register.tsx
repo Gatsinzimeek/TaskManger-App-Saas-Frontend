@@ -1,14 +1,14 @@
 import { Formik } from "formik";
-import { FaUser,FaLock } from "react-icons/fa";
+import { FaUser,FaLock, FaEnvelope } from "react-icons/fa";
 import { registerSchema } from "../components/Auth/Schema";
 import registImg from '../assets/Register.png' 
 
 
-const Register = () => {
+const Register:React.FC = () => {
   return (    <div className=' text-center flex items-center  justify-center h-screen gap-10 max-sm:block'>
           <div className='rounded-lg shadow-lg shadow-blue-500/20 p-8 '>
             <h1 className='text-2xl font-bold mb-4'>Task Manager Saas</h1>
-            <p className='text-gray-600 mb-[100px]'>Welcome back! Please Register to your account.</p>
+            <p className='text-gray-600 mb-[100px]'>Welcome back! Please Register for new account.</p>
             
             <Formik
               initialValues={{ email: '', username: '',password: '' }}
@@ -20,7 +20,7 @@ const Register = () => {
               {({ values, handleChange, handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
                   <div className="relative">
-                    <FaUser className="absolute left-3 top-3 text-gray-500" />
+                    <FaEnvelope className="absolute left-3 top-3 text-gray-500" />
                     <input
                       type="email"
                       name="email"

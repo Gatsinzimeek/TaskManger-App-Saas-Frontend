@@ -9,3 +9,12 @@ export const registerSchema = object({
   email: string().email('Invalid email format').required('Email is required'),
   password: string().min(6, 'Password must be at least 6 characters').required('Password is required'),
 });
+
+export const forgetPasswordSchema = object({
+  oldpassword: string().min(6, 'Password must be at least 6 characters').required('Old Password is required'),
+  newpassword: string().min(6, 'Password must be at least 6 characters').required('New Password is required'),
+});
+
+export const resetPasswordSchema = object({
+  email: string().email('Invalid email format').required('Email is required'),
+});

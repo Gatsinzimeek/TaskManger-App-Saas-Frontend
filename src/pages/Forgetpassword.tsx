@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik } from 'formik';
-import { loginSchema } from '../components/Auth/Schema';
+import { forgetPasswordSchema } from '../components/Auth/Schema';
 import { FaLock } from 'react-icons/fa';
 import Loginimg from '../assets/Login.png'
 
@@ -16,7 +16,7 @@ const Forgetpassword: React.FC = () => {
               onSubmit={(values) => {
                 console.log(values);
               }}
-              validationSchema={loginSchema}
+              validationSchema={forgetPasswordSchema}
             >
               {({ values, handleChange, handleSubmit }) => (
                 <form onSubmit={handleSubmit}>

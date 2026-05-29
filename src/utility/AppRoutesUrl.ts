@@ -3,4 +3,5 @@ export enum AppRoutesUrl {
   Register = '/register',
   Dashboard = '/dashboard',
   ForgetPassword = '/forgetpassword',
+  ResetPassword = '/resetpassword',
 }

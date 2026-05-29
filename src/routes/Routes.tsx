@@ -5,6 +5,7 @@ import { AppRoutesUrl } from '../utility/AppRoutesUrl';
 import Register from '../pages/Register';
 import PageNotFound from '../pages/NotFound';
 import Forgetpassword from '../pages/Forgetpassword';
+import Resetpassword from '../pages/Resetpassword';
 
 const RootContainer =  [
     {
@@ -22,6 +23,12 @@ const RootContainer =  [
         component: <Forgetpassword />,
         exact: true,
     },
+    {
+        url:AppRoutesUrl.ResetPassword,
+        component: <Resetpassword />,
+        exact: true,
+    },
+
     
 
 ]
