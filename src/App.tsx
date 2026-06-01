@@ -1,6 +1,6 @@
 import './App.css'
 import axios from 'axios';
-import {getAuthToken} from './store/users/types';
+import {getAuthToken} from './redux/users/types';
 import AppRouter from './routes/Routes';
 
 // Set base URL for axios from environment variable

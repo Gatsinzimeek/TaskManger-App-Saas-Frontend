@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { type FC } from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Login from '../pages/Login';
 import { AppRoutesUrl } from '../utility/AppRoutesUrl';

@@ -1,7 +1,7 @@
 import React from 'react';
 import LoginImg from '../assets/Login.png';
 import { Formik }from 'formik';
-import {loginSchema} from '../components/Auth/Schema';
+import { loginSchema } from '../components/Auth/Login/schema';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 
 const Login: React.FC = () => {
