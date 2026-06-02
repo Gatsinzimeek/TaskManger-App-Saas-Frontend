@@ -6,6 +6,8 @@ import Register from '../pages/Register';
 import PageNotFound from '../pages/NotFound';
 import Forgetpassword from '../pages/Forgetpassword';
 import Resetpassword from '../pages/Resetpassword';
+import Dashboard from '../pages/Dashboard';
+
 
 const RootContainer =  [
     {
@@ -22,14 +24,18 @@ const RootContainer =  [
         url:AppRoutesUrl.ForgetPassword,
         component: <Forgetpassword />,
         exact: true,
-    },
-    {
-        url:AppRoutesUrl.ResetPassword,
-        component: <Resetpassword />,
-        exact: true,
-    },
-
-    
+        },
+        {
+            url:AppRoutesUrl.ResetPassword,
+            component: <Resetpassword />,
+            exact: true,
+        },
+        {
+            url:AppRoutesUrl.Dashboard,
+            component: <Dashboard />,
+            exact: true,
+        },
+        
 
 ]
 

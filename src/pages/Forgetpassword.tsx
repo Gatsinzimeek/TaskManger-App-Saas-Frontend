@@ -7,9 +7,9 @@ import Loginimg from '../assets/Login.png'
 const Forgetpassword: React.FC = () => {
   return (
     <div className=' text-center flex items-center  justify-center h-screen gap-10 max-sm:block'>
-          <div className='rounded-lg shadow-lg shadow-blue-500/20 p-8 '>
+          <div className='rounded-lg shadow-lg shadow-blue-500/20 p-8 max-md:h-[100%]'>
             <h1 className='text-2xl font-bold mb-4'>Task Manager Saas</h1>
-            <p className='text-gray-600 mb-[100px]'>Welcome back! Please Change your password account.</p>
+            <p className='text-gray-600 mb-[100px]'> Please Change your password account.</p>
             
             <Formik
               initialValues={{ oldpassword: '', newpassword: '' }}
@@ -51,7 +51,7 @@ const Forgetpassword: React.FC = () => {
               )}
             </Formik>
           </div>
-          <div className='image md:novisible'>
+          <div className='max-md:hidden'>
             <img src={Loginimg} alt="Login" className=" w-[500px] object-cover" draggable='false'/>
           </div>
     </div>

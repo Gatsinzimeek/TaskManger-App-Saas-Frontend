@@ -5,8 +5,9 @@ import registImg from '../assets/Register.png'
 
 
 const Register:React.FC = () => {
-  return (    <div className=' text-center flex items-center  justify-center h-screen gap-10 max-sm:block'>
-          <div className='rounded-lg shadow-lg shadow-blue-500/20 p-8 '>
+  return (   
+    <div className=' text-center flex items-center  justify-center h-screen gap-10 max-sm:block'>
+          <div className='rounded-lg shadow-lg shadow-blue-500/20 p-8 max-md:h-[100%]'>
             <h1 className='text-2xl font-bold mb-4'>Task Manager Saas</h1>
             <p className='text-gray-600 mb-[100px]'>Welcome back! Please Register for new account.</p>
             
@@ -60,7 +61,7 @@ const Register:React.FC = () => {
               )}
             </Formik>
           </div>
-          <div className='image'>
+          <div className='max-md:hidden'>
             <img src={registImg} alt="Login" className=" w-[500px] object-cover" draggable='false'/>
           </div>
     </div>

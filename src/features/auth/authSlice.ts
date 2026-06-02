@@ -8,7 +8,9 @@ interface AuthState {
   } | null;
   token: string | null;
   loading: boolean;
+  isSucces?: boolean;
   error: string | null;
+  message?: object;
 }
 
 const initialState: AuthState = {
@@ -35,26 +37,21 @@ export const loginUser = createAsyncThunk(
     }
   );
 
-const authSlice = createSlice({
-  name: 'auth',
-  initialState: {
-    user: null,
-    token: null,
-    loading: false,
-    error: null,
-  },
-};  
+// const authSlice = createSlice({
+//   name: 'auth',
+//   initialState: {
+//     user: null,
+//     token: null,
+//     loading: false,
+//     error: null,
+//   },
+// };  
 
 
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    user: null,
-    token: null,
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     loginSuccess: (state, action) => {
       state.user = action.payload.user;

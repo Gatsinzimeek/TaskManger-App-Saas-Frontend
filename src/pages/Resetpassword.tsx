@@ -7,9 +7,9 @@ import LoginImg from '../assets/Register.png';
 const Resetpassword: React.FC = () => {
   return (
         <div className=' text-center flex items-center  justify-center h-screen gap-10 max-sm:block'>
-          <div className='rounded-lg shadow-lg shadow-blue-500/20 p-8 relative'>
-            <a href="/" className='text-gray-600 absolute left-10 top-1'>Go back to Login</a><FaArrowLeft className="absolute left-5 top-2 text-gray-500" />
-            <h1 className='text-2xl font-bold mb-4 mt-6'>Forgot Password</h1>
+          <div className='rounded-lg shadow-lg shadow-blue-500/20 p-8 relative max-md:h-[100%]'>
+            <a href="/" className='text-blue-500 absolute left-14 top-5'>Go back to Login<FaArrowLeft className="absolute top-1 right-34  text-blue-500" /></a>
+            <h1 className='text-2xl font-bold mb-4 mt-10'>Forgot Password</h1>
             <p className='text-gray-600 mb-[60px]'>Please enter your email address to reset your <br /> password.</p>
             
             <Formik
@@ -39,7 +39,7 @@ const Resetpassword: React.FC = () => {
               )}
             </Formik>
           </div>
-          <div className='image md:novisible'>
+          <div className='max-md:hidden'>
             <img src={LoginImg} alt="Login" className=" w-[500px] object-cover" draggable='false'/>
           </div>
     </div>
