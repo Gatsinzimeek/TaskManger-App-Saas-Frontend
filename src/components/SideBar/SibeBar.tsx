@@ -16,12 +16,12 @@ interface  ListItem {
 const SideBar: React.FC = () => {
   const list: ListItem[] = [
     { name: 'Dashboard', link: '/dashboard', icon: <CiHome size={24} /> },
-    { name: 'Tasks', link: '/tasks', icon: <LuListTodo size={24} /> },
-    { name: 'My Wallet', link: '/wallet', icon: <LuWallet size={24} /> },
-    { name: 'Settings', link: '/settings', icon: <HiOutlineCog6Tooth size={24} /> },
+    { name: 'Tasks', link: '/dashboard/tasks', icon: <LuListTodo size={24} /> },
+    { name: 'My Wallet', link: '/dashboard/wallet', icon: <LuWallet size={24} /> },
+    { name: 'Settings', link: '/dashboard/settings', icon: <HiOutlineCog6Tooth size={24} /> },
   ];
   return (
-    <div className='w-64 bg-white text-gray-500 pt-4 h-screen text-center max-sm:w-[12%]'>
+    <div className='w-64 bg-white text-gray-500 pt-4 h-screen flex flex-col text-center max-sm:w-[12%]'>
         <div className='flex ml-4 items-center max-sm:m-auto'>
           <img src={logo} alt="Logo" className='w-16 rounded-2xl max-sm:w-20' />
           
@@ -37,7 +37,7 @@ const SideBar: React.FC = () => {
           </List>
         ))}
       </ul>
-      <button className='mb-2 flex  cursor-pointer mt-10 items-center text-gray-500 p-4 hover:bg-blue-400 max-sm:m-auto hover:text-white rounded-2xl m-4 pl-4 pr-5 max-sm:w-fit'> <FaArrowRightFromBracket size={24} /> <span className='ml-2 max-sm:hidden'>Logout</span></button>
+      <button className='flex  cursor-pointer mt-auto items-center p-3 w-fit ml-10 bg-blue-400 max-sm:m-auto text-white rounded-2xl m-4  max-sm:w-fit'> <FaArrowRightFromBracket size={24} /> <span className='ml-2 max-sm:hidden'>Logout</span></button>
     </div>
   )
 }

@@ -13,7 +13,7 @@ const Dashboard: React.FC <Props> = () => {
     <>
         <div className="flex bg-gray-50">
             <SideBar />
-            <div className='flex-1  max-sm:w-[88%]'>
+            <div className='flex-1 flex flex-col min-h-screen max-sm:w-[88%]'>
                 <NavigationBar />
                 <div className=' p-4'>
                     <h2 className='text-2xl font-bold mb-4'></h2>

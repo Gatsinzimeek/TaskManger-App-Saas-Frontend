@@ -1,20 +1,49 @@
 import React from 'react'
 import { FaSearch } from 'react-icons/fa';
 import { CiBellOn } from 'react-icons/ci';
-
-
+import Emptynotification from '../../assets/emptynotification.png';
+import { SlClose } from "react-icons/sl";
 
 const NavigationBar: React.FC = () => {
+
+  const [showNotifications, setShowNotifications] = React.useState(false);
+  const [userMenuOpen, setUserMenuOpen] = React.useState(false);
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+    setUserMenuOpen(false);
+  };
+  const userToggle =  () => {
+    setUserMenuOpen(!userMenuOpen);
+    setShowNotifications(false);
+  }
+
   return (
-    <div className='flex justify-between items-center p-4 bg-white text-black pt-12 pb-8 h-16 w-full shadow-sm'>
+    <div className='flex relative justify-between items-center p-4 bg-white text-black pt-12 pb-8 h-16 w-full shadow-sm'>
         <h1 className='text-xl  font-light'>Dashboard</h1>
         <div className='flex items-center gap-4'>
           <div className="relative max-md:hidden "><input type="text" placeholder="Search..." className='bg-gray-50 text-gray-400 placeholder:text-gray-400 focus:outline-none pl-10 w-[260px] rounded-xl p-2' /><button className='cursor-pointer'><FaSearch className='absolute left-5 top-1/2 transform -translate-y-1/2 font-bold text-blue-500' /></button></div>
-            <span className='cursor-pointer relative'>
+            <span className='cursor-pointer relative' onClick={toggleNotifications}>
               <CiBellOn className='text-gray-400' size={24} color='blue'/>
               <span className="absolute top-1 right-1 bg-red-400 text-white rounded-full w-2 h-2 flex items-center justify-center text-xs"></span>
             </span>
-            <span className="cursor-pointer text-2xl bg-blue-500 text-white rounded-full w-10 h-10 flex items-center m-auto justify-center">U</span>
+            <span className="cursor-pointer text-2xl bg-blue-500 text-white rounded-full w-10 h-10 flex items-center m-auto justify-center" onClick={userToggle}>
+              U
+            </span>
+      </div>
+      <div className={`absolute right-4 top-22 ${showNotifications && !userMenuOpen ? 'block' : 'hidden'} bg-white shadow-lg rounded-lg p-4 w-64`}>
+        <h4 className="text-gray-400 text-center">
+          <span>Empty notifications</span>
+          <img src={Emptynotification} alt="Empty Notifications" className='w-full mt-4' />
+        </h4>
+        <button className="absolute top-2 right-2 cursor-pointer" onClick={toggleNotifications}>
+          <SlClose size={18}  color='red'/>
+        </button>
+      </div>
+      <div className={`absolute right-4 top-22 ${!showNotifications && userMenuOpen ? 'block' : 'hidden'} bg-white shadow-lg rounded-lg p-4 w-64`}>
+          <h4>Gatsinzi Ernest</h4>
+          <p className="text-gray-400 text-sm">gatsinzi.ernest@example.com</p>
+          
       </div>
     </div>
   )
