@@ -2,6 +2,8 @@ import './App.css'
 import axios from 'axios';
 import {getAuthToken} from './redux/users/types';
 import AppRouter from './routes/Routes';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Set base URL for axios from environment variable
 const apiUrl = import.meta.env.REACT_APP_API_URL || 'http://localhost:5000/api';
@@ -16,6 +18,7 @@ function App() {
   return (
     <div>
       <AppRouter />
+      <ToastContainer />
     </div>
   )
 }

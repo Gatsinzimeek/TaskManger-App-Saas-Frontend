@@ -37,7 +37,7 @@ const SideBar: React.FC = () => {
           </List>
         ))}
       </ul>
-      <button className='flex  cursor-pointer mt-auto items-center p-3 w-fit ml-10 bg-blue-400 max-sm:m-auto text-white rounded-2xl m-4  max-sm:w-fit'> <FaArrowRightFromBracket size={24} /> <span className='ml-2 max-sm:hidden'>Logout</span></button>
+      <button className='flex shadow-blue500/20 shadow-lg cursor-pointer mt-auto items-center p-3 w-fit ml-10 bg-blue-400 max-sm:m-auto text-white rounded-2xl m-4  max-sm:w-fit'> <FaArrowRightFromBracket size={24} /> <span className='ml-2 max-sm:hidden'>Logout</span></button>
     </div>
   )
 }

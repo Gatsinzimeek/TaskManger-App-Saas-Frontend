@@ -6,8 +6,11 @@ import Register from '../pages/Register';
 import PageNotFound from '../pages/NotFound';
 import Forgetpassword from '../pages/Forgetpassword';
 import Resetpassword from '../pages/Resetpassword';
-import Dashboard from '../pages/Dashboard';
-
+import Dashboard from '../pages/userDashboard/Dashboard';
+import DashboardLayout from '../components/DashboardLayout';
+import Tasks from '../pages/userDashboard/Tasks';
+import Setting from '../pages/userDashboard/Setting';
+import Wallet from '../pages/userDashboard/Wallet';
 
 const RootContainer =  [
     {
@@ -29,13 +32,7 @@ const RootContainer =  [
             url:AppRoutesUrl.ResetPassword,
             component: <Resetpassword />,
             exact: true,
-        },
-        {
-            url:AppRoutesUrl.Dashboard,
-            component: <Dashboard />,
-            exact: true,
-        },
-        
+        }, 
 
 ]
 
@@ -49,6 +46,13 @@ const AppRoutes: FC = () => {
                 <Route key={route.url} path={route.url} element={route.component} />
             ))
         }
+        <Route path="/dashboard/*" element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="tasks" element={<Tasks />} />
+          <Route path="settings" element={<Setting />} />
+          <Route path="wallet" element={<Wallet />} />
+          <Route path="*" element={<PageNotFound />} /> {/* Fallback route for undefined paths */}
+        </Route>
         <Route path="*" element={<PageNotFound />} /> {/* Fallback route for undefined paths */}
       </Routes>
     </Router>
