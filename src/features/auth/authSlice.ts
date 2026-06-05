@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
+import { createSlice, type ActionReducerMapBuilder} from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import authService from './authServices';
 interface AuthState {
   user: {
     id: number;
@@ -9,60 +10,75 @@ interface AuthState {
   token: string | null;
   loading: boolean;
   isSucces?: boolean;
-  error: string | null;
-  message?: object;
+  isError: boolean;
+  message?: string;
+}
+interface User {
+  id: number;
+  username: string;
+  email: string;
 }
 
+interface useData {
+  username: string,
+  email: string,
+  password: string
+}
+
+const userString = localStorage.getItem('user');
+
+const user: User | null = userString
+  ? JSON.parse(userString)
+  : null;
+
 const initialState: AuthState = {
-  user: null,
+  user: user ? user : null,
   token: null,
   loading: false,
-  error: null,
+  isError: false,
 };  
 
-export const loginUser = createAsyncThunk(
-    "auth/loginUser",
-    async (credentials: { username: string; password: string }) => {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      });
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-      return response.json();
-    }
-  );
-
-// const authSlice = createSlice({
-//   name: 'auth',
-//   initialState: {
-//     user: null,
-//     token: null,
-//     loading: false,
-//     error: null,
-//   },
-// };  
-
+export const register = createAsyncThunk('auth/register', async (user:useData, thunkAPI) => {
+  try {
+    return await authService.register(user);
+  } catch (error:unknown) {
+    const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+})
 
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    loginSuccess: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-    },
-    logout: (state) => {
-      state.user = null;
-      state.token = null;
-    },
+    reset: (state) => {
+      state.loading = false;
+      state.isError = false;
+      state.isSucces = false;
+      state.message = ''
+    }
   },
+  extraReducers: (builder:ActionReducerMapBuilder<AuthState>) => {
+    builder
+    .addCase(register.pending, (state) => {
+      state.loading = true
+    })
+    .addCase(register.fulfilled, (state, action) => {
+      state.isSucces = true;
+      state.loading = false;
+      state.user = action.payload;
+      
+    })
+    .addCase(register.rejected, (state, action) => {
+      state.isError = true;
+      state.loading = false;
+      state.message = action.payload.message;
+      state.user = null;
+
+    })
+  }
 });
 
-export const { loginSuccess, logout } = authSlice.actions;
+export const { reset } = authSlice.actions;
 export default authSlice.reducer;

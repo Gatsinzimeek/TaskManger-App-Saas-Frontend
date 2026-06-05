@@ -11,6 +11,7 @@ import DashboardLayout from '../components/DashboardLayout';
 import Tasks from '../pages/userDashboard/Tasks';
 import Setting from '../pages/userDashboard/Setting';
 import Wallet from '../pages/userDashboard/Wallet';
+import AccountVerify from '../pages/AccountVerify';
 
 const RootContainer =  [
     {
@@ -34,6 +35,11 @@ const RootContainer =  [
             exact: true,
         }, 
 
+        {
+            url:AppRoutesUrl.verifyUser,
+            component: <AccountVerify />,
+            exact: true,
+        },
 ]
 
 const AppRoutes: FC = () => {

@@ -7,6 +7,7 @@ import { FaLock, FaEnvelope } from 'react-icons/fa';
 const Login: React.FC = () => {
   
 
+
   return (
     <div className=' text-center flex items-center  justify-center h-screen gap-10 max-sm:block'>
           <div className='rounded-lg shadow-lg shadow-blue-500/20 p-8 max-md:h-[100%]'>

@@ -6,8 +6,8 @@ import { SlClose } from "react-icons/sl";
 
 const NavigationBar: React.FC = () => {
 
-  const [showNotifications, setShowNotifications] = React.useState(false);
-  const [userMenuOpen, setUserMenuOpen] = React.useState(false);
+  const [showNotifications, setShowNotifications] = React.useState<boolean>(false);
+  const [userMenuOpen, setUserMenuOpen] = React.useState<boolean>(false);
 
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);

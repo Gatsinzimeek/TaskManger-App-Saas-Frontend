@@ -1,71 +1,119 @@
 import { Formik } from "formik";
-import { FaUser,FaLock, FaEnvelope } from "react-icons/fa";
+import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
 import { registerSchema } from "../components/Auth/Register/schema";
-import registImg from '../assets/Register.png' 
+import registImg from "../assets/Register.png";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { register, reset } from "../features/auth/authSlice";
+import React from "react";
+import type { RootState, AppDispatch } from "../redux/store";
 
+const Register: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
-const Register:React.FC = () => {
-  return (   
-    <div className=' text-center flex items-center  justify-center h-screen gap-10 max-sm:block'>
-          <div className='rounded-lg shadow-lg shadow-blue-500/20 p-8 max-md:h-[100%]'>
-            <h1 className='text-2xl font-bold mb-4'>Task Manager Saas</h1>
-            <p className='text-gray-600 mb-[100px]'>Welcome back! Please Register for new account.</p>
-            
-            <Formik
-              initialValues={{ email: '', username: '',password: '' }}
-              onSubmit={(values) => {
-                console.log(values);
-              }}
-              validationSchema={registerSchema}
-            >
-              {({ values, handleChange, handleSubmit }) => (
-                <form onSubmit={handleSubmit}>
-                  <div className="relative">
-                    <FaEnvelope className="absolute left-3 top-3 text-gray-500" />
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder={`Email Address`}
-                      value={values.email}
-                      onChange={handleChange}
-                      className="border border-gray-300 rounded-md pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div className="relative">
-                    <FaUser className="absolute left-3 top-7 text-gray-500" />
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder={`Username`}
-                      value={values.username}
-                      onChange={handleChange}
-                      className="border border-gray-300 rounded-md pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4"
-                    />
-                  </div>
-                  <div className="relative">
-                    <FaLock className="absolute left-3 top-7 text-gray-500" />
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      value={values.password}
-                      onChange={handleChange}
-                      className="border border-gray-300 rounded-md pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4"
-                    />
-                  </div>
-                  <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 w-full mt-4 cursor-pointer shadow-2xl focus:ring-blue-500">
-                    Register
-                  </button>
-                  <p className='pt-4 text-[14px] text-gray-600 text-left'>You Already have an account here? <a href="/" className='text-blue-400'>login here</a></p>
-                </form>
-              )}
-            </Formik>
-          </div>
-          <div className='max-md:hidden'>
-            <img src={registImg} alt="Login" className=" w-[500px] object-cover" draggable='false'/>
-          </div>
+  const { user, loading, isError, message, isSucces } = useSelector(
+    (state: RootState) => state.auth
+  );React.useEffect(() => {
+  if (isSucces || user) {
+    toast.success("Registration successful");
+    navigate("/");
+
+    dispatch(reset()); // safe here
+  }
+}, [isSucces, user, navigate, dispatch]);
+
+React.useEffect(() => {
+  if (isError) {
+    toast.error(message);
+  }
+}, [isError, message]);
+  return (
+    <div className="text-center flex items-center justify-center h-screen gap-10 max-sm:block">
+      <div className="rounded-lg shadow-lg shadow-blue-500/20 p-8 max-md:h-full">
+        <h1 className="text-2xl font-bold mb-4">Task Manager SaaS</h1>
+        <p className="text-gray-600 mb-25">
+          Welcome! Please register for a new account.
+        </p>
+
+        <Formik
+          initialValues={{ email: "", username: "", password: "" }}
+          validationSchema={registerSchema}
+          onSubmit={(values) => {
+            dispatch(register(values));
+            console.log('hello');
+          }}
+        >
+          {({ values, handleChange, handleSubmit }) => (
+            <form onSubmit={handleSubmit}>
+              {/* EMAIL */}
+              <div className="relative">
+                <FaEnvelope className="absolute left-3 top-3 text-gray-500" />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={values.email}
+                  onChange={handleChange}
+                  className="border border-gray-300 rounded-md pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* USERNAME */}
+              <div className="relative">
+                <FaUser className="absolute left-3 top-7 text-gray-500" />
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  value={values.username}
+                  onChange={handleChange}
+                  className="border border-gray-300 rounded-md pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4"
+                />
+              </div>
+
+              {/* PASSWORD */}
+              <div className="relative">
+                <FaLock className="absolute left-3 top-7 text-gray-500" />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={values.password}
+                  onChange={handleChange}
+                  className="border border-gray-300 rounded-md pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer hover:bg-blue-600 w-full mt-4"
+              >
+                Register
+              </button>
+
+              <p className="pt-4 text-sm text-gray-600 text-left">
+                Already have an account?{" "}
+                <a href="/" className="text-blue-400">
+                  Login here
+                </a>
+              </p>
+            </form>
+          )}
+        </Formik>
+      </div>
+
+      <div className="max-md:hidden">
+        <img
+          src={registImg}
+          alt="Register"
+          className="w-125 object-cover"
+          draggable={false}
+        />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
