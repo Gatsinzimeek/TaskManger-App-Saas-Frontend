@@ -2,33 +2,15 @@ import { Formik } from "formik";
 import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
 import { registerSchema } from "../components/Auth/Register/schema";
 import registImg from "../assets/Register.png";
+import { useRegisterMutation } from "../features/auth/authApi";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { register, reset } from "../features/auth/authSlice";
 import React from "react";
-import type { RootState, AppDispatch } from "../redux/store";
 
 const Register: React.FC = () => {
+
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
 
-  const { user, loading, isError, message, isSucces } = useSelector(
-    (state: RootState) => state.auth
-  );React.useEffect(() => {
-  if (isSucces || user) {
-    toast.success("Registration successful");
-    navigate("/");
-
-    dispatch(reset()); // safe here
-  }
-}, [isSucces, user, navigate, dispatch]);
-
-React.useEffect(() => {
-  if (isError) {
-    toast.error(message);
-  }
-}, [isError, message]);
   return (
     <div className="text-center flex items-center justify-center h-screen gap-10 max-sm:block">
       <div className="rounded-lg shadow-lg shadow-blue-500/20 p-8 max-md:h-full">
@@ -41,7 +23,7 @@ React.useEffect(() => {
           initialValues={{ email: "", username: "", password: "" }}
           validationSchema={registerSchema}
           onSubmit={(values) => {
-            dispatch(register(values));
+            console.log(values)
             console.log('hello');
           }}
         >

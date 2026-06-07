@@ -2,7 +2,11 @@ import React from 'react';
 import LoginImg from '../assets/Login.png';
 import { Formik }from 'formik';
 import { loginSchema } from '../components/Auth/Login/schema';
-import { FaLock, FaEnvelope } from 'react-icons/fa';
+import { FaLock, FaUser } from 'react-icons/fa';
+// import { UseSelector, useDispatch } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+// import type { RootState, AppDispatch } from "../redux/store";
+
 
 const Login: React.FC = () => {
   
@@ -23,11 +27,11 @@ const Login: React.FC = () => {
               {({ values, handleChange, handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
                   <div className="relative">
-                    <FaEnvelope className="absolute left-3 top-3 text-gray-500" />
+                    <FaUser className="absolute left-3 top-3 text-gray-500" />
                     <input
-                      type="email"
-                      name="email"
-                      placeholder={`Email Address`}
+                      type="text"
+                      name="username"
+                      placeholder={`Enter your username`}
                       value={values.email}
                       onChange={handleChange}
                       className="border border-gray-300 rounded-md pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"

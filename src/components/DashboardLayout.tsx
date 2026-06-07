@@ -1,7 +1,7 @@
 import React from 'react';
 import SideBar from './SideBar/SibeBar';
 import NavigationBar from './navigationBar/navigationBar'
-import Footer from './footer';
+// import Footer from './footer';
 import { Outlet } from 'react-router-dom';
 
 type Props = {
@@ -16,7 +16,7 @@ const DashboardLayout: React.FC <Props> = () => {
             <div className='flex-1 flex flex-col min-h-screen max-sm:w-[88%]'>
                 <NavigationBar />
                 <Outlet />
-                <Footer />
+                {/* <Footer /> */}
             </div>
         </div>
     </>
