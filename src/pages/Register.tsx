@@ -8,8 +8,17 @@ import { toast } from "react-toastify";
 import React from "react";
 
 const Register: React.FC = () => {
-
+  const  [register, {isLoading}] = useRegisterMutation();
   const navigate = useNavigate();
+  
+  const handleSubmit = async (value: any) => {
+    try {
+      await register(value).unwrap();
+      toast.success("Registered succesfully")
+    } catch (error : any) {
+      toast.error(error?.data?.message || "Error occured");
+    }
+  }
 
   return (
     <div className="text-center flex items-center justify-center h-screen gap-10 max-sm:block">
@@ -22,10 +31,7 @@ const Register: React.FC = () => {
         <Formik
           initialValues={{ email: "", username: "", password: "" }}
           validationSchema={registerSchema}
-          onSubmit={(values) => {
-            console.log(values)
-            console.log('hello');
-          }}
+          onSubmit={handleSubmit}
         >
           {({ values, handleChange, handleSubmit }) => (
             <form onSubmit={handleSubmit}>
@@ -70,11 +76,13 @@ const Register: React.FC = () => {
 
               <button
                 type="submit"
-                className="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer hover:bg-blue-600 w-full mt-4"
+                disabled={isLoading}
+                className={`bg-blue-500 text-white py-2 px-4 rounded-md w-full mt-4
+                  ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600 cursor-pointer"}
+                `}
               >
-                Register
+                {isLoading ? "Loading..." : "Register"}
               </button>
-
               <p className="pt-4 text-sm text-gray-600 text-left">
                 Already have an account?{" "}
                 <a href="/" className="text-blue-400">
