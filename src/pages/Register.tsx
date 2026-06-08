@@ -14,7 +14,11 @@ const Register: React.FC = () => {
   const handleSubmit = async (value: any) => {
     try {
       await register(value).unwrap();
-      toast.success("Registered succesfully")
+      toast.success("Registered succesfully");
+      setTimeout(() => {
+         toast.info('Check you email to verify Account to be able to login');
+      }, 3000);
+     
     } catch (error : any) {
       toast.error(error?.data?.message || "Error occured");
     }

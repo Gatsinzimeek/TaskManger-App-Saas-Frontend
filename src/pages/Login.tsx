@@ -3,14 +3,25 @@ import LoginImg from '../assets/Login.png';
 import { Formik }from 'formik';
 import { loginSchema } from '../components/Auth/Login/schema';
 import { FaLock, FaUser } from 'react-icons/fa';
+import { useLoginMutation } from '../features/auth/authApi';
 // import { UseSelector, useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
-// import type { RootState, AppDispatch } from "../redux/store";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const Login: React.FC = () => {
-  
-
+  const [login, {isLoading}] = useLoginMutation();
+  const navigate = useNavigate();
+  const handleSubmit = async (value: any) => {
+    try {
+      
+      await login(value).unwrap();
+      toast.success('Login successfully');
+      navigate('/dashboard');
+    } catch (error: any) {
+      toast.error(error?.data?.message || 'error Occured during login try again later!');
+    }
+  }
 
   return (
     <div className=' text-center flex items-center  justify-center h-screen gap-10 max-sm:block'>
@@ -18,10 +29,8 @@ const Login: React.FC = () => {
             <h1 className='text-2xl font-bold mb-4'>Task Manager Saas</h1>
             <p className='text-gray-600 mb-[100px]'>Welcome back! Please login to your account.</p>
             <Formik
-              initialValues={{ email: '', password: '' }}
-              onSubmit={(values) => {
-                console.log(values);
-              }}
+              initialValues={{ username: '', password: '' }}
+              onSubmit={handleSubmit}
               validationSchema={loginSchema}
             >
               {({ values, handleChange, handleSubmit }) => (
@@ -32,7 +41,7 @@ const Login: React.FC = () => {
                       type="text"
                       name="username"
                       placeholder={`Enter your username`}
-                      value={values.email}
+                      value={values.username}
                       onChange={handleChange}
                       className="border border-gray-300 rounded-md pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
@@ -49,9 +58,15 @@ const Login: React.FC = () => {
                     />
                   </div>
                     <p className='pt-4 text-[14px] text-left'><a href="/resetpassword" className='text-blue-400'>Forget Your password</a></p>           
-                  <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 w-full mt-4 cursor-pointer shadow-2xl focus:ring-blue-500">
-                    Login
-                  </button>
+                  <button
+                type="submit"
+                disabled={isLoading}
+                className={`bg-blue-500 text-white py-2 px-4 rounded-md w-full mt-4
+                  ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600 cursor-pointer"}
+                `}
+              >
+                {isLoading ? "Loading..." : "Login"}
+              </button>
                   <p className='pt-4 text-[14px] text-gray-600 text-left'>You don't have account yet? <a href="/register" className='text-blue-400'>Register here</a></p>
                 </form>
               )}
