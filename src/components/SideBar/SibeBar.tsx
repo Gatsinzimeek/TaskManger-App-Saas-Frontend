@@ -11,14 +11,15 @@ interface  ListItem {
   name: string;
   link: string;
   icon: React.ReactNode;
+  title: string;
 }
 
 const SideBar: React.FC = () => {
   const list: ListItem[] = [
-    { name: 'Dashboard', link: '/dashboard', icon: <CiHome size={24} /> },
-    { name: 'Tasks', link: '/dashboard/tasks', icon: <LuListTodo size={24} /> },
-    { name: 'My Wallet', link: '/dashboard/wallet', icon: <LuWallet size={24} /> },
-    { name: 'Settings', link: '/dashboard/settings', icon: <HiOutlineCog6Tooth size={24} /> },
+    { name: 'Dashboard', link: '/dashboard', icon: <CiHome size={24} />, title: 'Dashboard' },
+    { name: 'Tasks', link: '/dashboard/tasks', icon: <LuListTodo size={24} />, title: 'tasks' },
+    { name: 'My Wallet', link: '/dashboard/wallet', icon: <LuWallet size={24} />, title: 'wallet' },
+    { name: 'Settings', link: '/dashboard/settings', icon: <HiOutlineCog6Tooth size={24} />, title: 'settings' },
   ];
   return (
     <div className='w-64 bg-white text-gray-500 pt-4 h-screen flex flex-col text-center max-sm:w-[12%]'>
@@ -32,7 +33,7 @@ const SideBar: React.FC = () => {
         </div>
       <ul className='mt-19'>
         {list.map((item, index) => (
-          <List key={index} name={item.name} link={item.link}>
+          <List key={index} name={item.name} link={item.link} title={item.title}>
             {item.icon}
           </List>
         ))}

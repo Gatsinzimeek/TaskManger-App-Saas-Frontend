@@ -13,11 +13,16 @@ const Register: React.FC = () => {
   
   const handleSubmit = async (value: any) => {
     try {
-      await register(value).unwrap();
+      const response = await register(value).unwrap();
       toast.success("Registered succesfully");
+      if(response?.message) {
+        setTimeout(() => {
+          toast.info(response.message);
+        }, 2000);
+      }
       setTimeout(() => {
-         toast.info('Check you email to verify Account to be able to login');
-      }, 3000);
+        navigate('/')
+        }, 3000);
      
     } catch (error : any) {
       toast.error(error?.data?.message || "Error occured");
@@ -37,8 +42,20 @@ const Register: React.FC = () => {
           validationSchema={registerSchema}
           onSubmit={handleSubmit}
         >
-          {({ values, handleChange, handleSubmit }) => (
-            <form onSubmit={handleSubmit}>
+          {({ values, handleChange, handleSubmit, errors, isValid }) => {
+        
+            return (
+            <form
+                onSubmit={(e) => {
+                  handleSubmit(e);
+
+                  if (!isValid) {
+                    Object.values(errors).forEach((err) => {
+                      toast.error(err as string);
+                    });
+                  }
+                }}
+              >
               {/* EMAIL */}
               <div className="relative">
                 <FaEnvelope className="absolute left-3 top-3 text-gray-500" />
@@ -94,7 +111,8 @@ const Register: React.FC = () => {
                 </a>
               </p>
             </form>
-          )}
+            )
+      }}
         </Formik>
       </div>
 

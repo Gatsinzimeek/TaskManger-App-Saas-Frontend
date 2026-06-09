@@ -2,9 +2,8 @@ import React from 'react';
 import LoginImg from '../assets/Login.png';
 import { Formik }from 'formik';
 import { loginSchema } from '../components/Auth/Login/schema';
-import { FaLock, FaUser } from 'react-icons/fa';
+import { FaLock, FaEnvelope } from 'react-icons/fa';
 import { useLoginMutation } from '../features/auth/authApi';
-// import { UseSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -14,10 +13,21 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const handleSubmit = async (value: any) => {
     try {
-      
-      await login(value).unwrap();
-      toast.success('Login successfully');
-      navigate('/dashboard');
+      const response = await login(value).unwrap();
+      if(response?.message) {
+              setTimeout(() => {
+                toast.success(response.message);
+              }, 2000);
+      }
+
+    // 👇 SAVE TOKEN
+    localStorage.setItem("token", response.token);
+
+    // 👇 SAVE USER
+    localStorage.setItem("user", JSON.stringify(response.user));
+      setTimeout(() => {
+        navigate('/dashboard');
+        }, 3000);
     } catch (error: any) {
       toast.error(error?.data?.message || 'error Occured during login try again later!');
     }
@@ -29,19 +39,26 @@ const Login: React.FC = () => {
             <h1 className='text-2xl font-bold mb-4'>Task Manager Saas</h1>
             <p className='text-gray-600 mb-[100px]'>Welcome back! Please login to your account.</p>
             <Formik
-              initialValues={{ username: '', password: '' }}
+              initialValues={{ email: '', password: '' }}
               onSubmit={handleSubmit}
               validationSchema={loginSchema}
             >
-              {({ values, handleChange, handleSubmit }) => (
-                <form onSubmit={handleSubmit}>
+              {({ values, handleChange, handleSubmit, isValid, errors }) => (
+                <form onSubmit={(e) => {
+                  handleSubmit(e)
+                  if(!isValid) {
+                    Object.values(errors).forEach((err) => {
+                      toast.error(err as string);
+                    })
+                  }
+                  }}>
                   <div className="relative">
-                    <FaUser className="absolute left-3 top-3 text-gray-500" />
+                    <FaEnvelope className="absolute left-3 top-3 text-gray-500" />
                     <input
-                      type="text"
-                      name="username"
-                      placeholder={`Enter your username`}
-                      value={values.username}
+                      type="email"
+                      name="email"
+                      placeholder="Email Address"
+                      value={values.email}
                       onChange={handleChange}
                       className="border border-gray-300 rounded-md pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
