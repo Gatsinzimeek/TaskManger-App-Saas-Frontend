@@ -6,6 +6,7 @@ import { FaArrowRightFromBracket } from "react-icons/fa6";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
 import List from './list';
 import logo from '../../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 interface  ListItem {
   name: string;
@@ -15,6 +16,12 @@ interface  ListItem {
 }
 
 const SideBar: React.FC = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/');
+  }
   const list: ListItem[] = [
     { name: 'Dashboard', link: '/dashboard', icon: <CiHome size={24} />, title: 'Dashboard' },
     { name: 'Tasks', link: '/dashboard/tasks', icon: <LuListTodo size={24} />, title: 'tasks' },
@@ -38,7 +45,7 @@ const SideBar: React.FC = () => {
           </List>
         ))}
       </ul>
-      <button className='flex shadow-blue500/20 shadow-lg cursor-pointer mt-auto items-center p-3 w-fit ml-10 bg-blue-400 max-sm:m-auto text-white rounded-2xl m-4  max-sm:w-fit'> <FaArrowRightFromBracket size={24} /> <span className='ml-2 max-sm:hidden'>Logout</span></button>
+      <button onClick={handleLogout} className='flex shadow-blue500/20 shadow-lg cursor-pointer mt-auto items-center p-3 w-fit ml-10 bg-blue-400 max-sm:m-auto text-white rounded-2xl m-4  max-sm:w-fit'> <FaArrowRightFromBracket size={24} /> <span className='ml-2 max-sm:hidden'>Logout</span></button>
     </div>
   )
 }

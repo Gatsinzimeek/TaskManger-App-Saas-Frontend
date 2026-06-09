@@ -3,12 +3,20 @@ import { FaSearch } from 'react-icons/fa';
 import { CiBellOn } from 'react-icons/ci';
 import Emptynotification from '../../assets/emptynotification.png';
 import { SlClose } from "react-icons/sl";
+import { useLocation } from 'react-router-dom';
 
 const NavigationBar: React.FC = () => {
 
   const [showNotifications, setShowNotifications] = React.useState<boolean>(false);
   const [userMenuOpen, setUserMenuOpen] = React.useState<boolean>(false);
+  const location = useLocation().pathname.split('/');
+  let name
 
+  if(location.length > 2) {
+     name = location[2];
+  }else{
+     name = location[1];
+  }
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
     setUserMenuOpen(false);
@@ -20,7 +28,7 @@ const NavigationBar: React.FC = () => {
 
   return (
     <div className='flex relative justify-between items-center p-4 bg-white text-black pt-12 pb-8 h-16 w-full shadow-sm'>
-        <h1 className='text-xl  font-light'>Dashboard</h1>
+        <h1 className='text-xl  font-light'>{name.toLocaleUpperCase()}</h1>
         <div className='flex items-center gap-4'>
           <div className="relative max-md:hidden "><input type="text" placeholder="Search..." className='bg-gray-50 text-gray-400 placeholder:text-gray-400 focus:outline-none pl-10 w-[260px] rounded-xl p-2' /><button className='cursor-pointer'><FaSearch className='absolute left-5 top-1/2 transform -translate-y-1/2 font-bold text-blue-500' /></button></div>
             <span className='cursor-pointer relative' onClick={toggleNotifications}>
