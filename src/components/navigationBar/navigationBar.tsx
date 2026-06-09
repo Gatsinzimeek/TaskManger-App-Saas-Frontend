@@ -10,6 +10,13 @@ const NavigationBar: React.FC = () => {
   const [showNotifications, setShowNotifications] = React.useState<boolean>(false);
   const [userMenuOpen, setUserMenuOpen] = React.useState<boolean>(false);
   const location = useLocation().pathname.split('/');
+  const userdata = localStorage.getItem('user');
+  
+  const user = userdata ? JSON.parse(userdata) : null
+  const userFirstChar = user?.username?.charAt(0).toLocaleUpperCase() || "";
+  
+  console.log(userFirstChar);
+
   let name
 
   if(location.length > 2) {
@@ -36,7 +43,9 @@ const NavigationBar: React.FC = () => {
               <span className="absolute top-1 right-1 bg-red-400 text-white rounded-full w-2 h-2 flex items-center justify-center text-xs"></span>
             </span>
             <span className="cursor-pointer text-2xl bg-blue-500 text-white rounded-full w-10 h-10 flex items-center m-auto justify-center" onClick={userToggle}>
-              U
+              {
+                userFirstChar
+              }
             </span>
       </div>
       <div className={`absolute right-4 top-22 ${showNotifications && !userMenuOpen ? 'block' : 'hidden'} bg-white shadow-lg rounded-lg p-4 w-64`}>

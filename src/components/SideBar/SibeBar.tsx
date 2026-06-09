@@ -4,9 +4,11 @@ import { LuWallet } from "react-icons/lu";
 import { LuListTodo } from "react-icons/lu";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
+import { IoFolderOpenOutline } from "react-icons/io5";
 import List from './list';
 import logo from '../../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 interface  ListItem {
   name: string;
@@ -21,13 +23,15 @@ const SideBar: React.FC = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     navigate('/');
+    toast.success('User Logout successfull');
   }
   const list: ListItem[] = [
     { name: 'Dashboard', link: '/dashboard', icon: <CiHome size={24} />, title: 'Dashboard' },
     { name: 'Tasks', link: '/dashboard/tasks', icon: <LuListTodo size={24} />, title: 'tasks' },
     { name: 'My Wallet', link: '/dashboard/wallet', icon: <LuWallet size={24} />, title: 'wallet' },
+    { name: 'Payments', link: '/dashboard/payment', icon: <IoFolderOpenOutline size={24} />, title: 'payments' },
     { name: 'Settings', link: '/dashboard/settings', icon: <HiOutlineCog6Tooth size={24} />, title: 'settings' },
-  ];
+ ];
   return (
     <div className='w-64 bg-white text-gray-500 pt-4 h-screen flex flex-col text-center max-sm:w-[12%]'>
         <div className='flex ml-4 items-center max-sm:m-auto'>

@@ -15,6 +15,7 @@ const AccountVerify = lazy(() => import("../pages/AccountVerify"));
 // Dashboard
 const Dashboard = lazy(() => import("../pages/userDashboard/Dashboard"));
 const Tasks = lazy(() => import("../pages/userDashboard/Tasks"));
+const PaymentStatement = lazy(() => import("../pages/userDashboard/PaymentStatement"));
 const Setting = lazy(() => import("../pages/userDashboard/Setting"));
 const Wallet = lazy(() => import("../pages/userDashboard/Wallet"));
 const DashboardLayout = lazy(() => import("../components/DashboardLayout"));
@@ -105,6 +106,15 @@ const AppRoutes: FC = () => {
             element={
               <Suspense fallback={<Spinner />}>
                 <Setting />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="payment"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <PaymentStatement />
               </Suspense>
             }
           />
