@@ -27,7 +27,7 @@ const Login: React.FC = () => {
     localStorage.setItem("user", JSON.stringify(response.user));
       setTimeout(() => {
         navigate('/dashboard');
-        }, 3000);
+        }, 2000);
     } catch (error: any) {
       toast.error(error?.data?.message || 'error Occured during login try again later!');
     }

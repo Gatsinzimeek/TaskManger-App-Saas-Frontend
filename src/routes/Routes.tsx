@@ -1,68 +1,137 @@
-import { type FC } from 'react';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Login from '../pages/Login';
-import { AppRoutesUrl } from '../utility/AppRoutesUrl';
-import Register from '../pages/Register';
-import PageNotFound from '../pages/NotFound';
-import Forgetpassword from '../pages/Forgetpassword';
-import Resetpassword from '../pages/Resetpassword';
-import Dashboard from '../pages/userDashboard/Dashboard';
-import DashboardLayout from '../components/DashboardLayout';
-import Tasks from '../pages/userDashboard/Tasks';
-import Setting from '../pages/userDashboard/Setting';
-import Wallet from '../pages/userDashboard/Wallet';
-import AccountVerify from '../pages/AccountVerify';
+import { type FC, lazy, Suspense } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Spinner from "../components/spinner";
+import { AppRoutesUrl } from "../utility/AppRoutesUrl";
+import ProtectedRoute from "../pages/ProtectRoute";
 
-const RootContainer =  [
-    {
-        url:AppRoutesUrl.Login,
-        component: <Login />,
-        exact: true,
-    },
-    {
-        url:AppRoutesUrl.Register,
-        component: <Register />,
-        exact: true,
-    },
-    {
-        url:AppRoutesUrl.ForgetPassword,
-        component: <Forgetpassword />,
-        exact: true,
-        },
-        {
-            url:AppRoutesUrl.ResetPassword,
-            component: <Resetpassword />,
-            exact: true,
-        }, 
+//  LAZY LOADED PAGES
+const Login = lazy(() => import("../pages/Login"));
+const Register = lazy(() => import("../pages/Register"));
+const PageNotFound = lazy(() => import("../pages/NotFound"));
+const Forgetpassword = lazy(() => import("../pages/Forgetpassword"));
+const Resetpassword = lazy(() => import("../pages/Resetpassword"));
+const AccountVerify = lazy(() => import("../pages/AccountVerify"));
 
-        {
-            url:AppRoutesUrl.verifyUser,
-            component: <AccountVerify />,
-            exact: true,
-        },
-]
+// Dashboard
+const Dashboard = lazy(() => import("../pages/userDashboard/Dashboard"));
+const Tasks = lazy(() => import("../pages/userDashboard/Tasks"));
+const Setting = lazy(() => import("../pages/userDashboard/Setting"));
+const Wallet = lazy(() => import("../pages/userDashboard/Wallet"));
+const DashboardLayout = lazy(() => import("../components/DashboardLayout"));
 
 const AppRoutes: FC = () => {
   return (
     <Router>
+
       <Routes>
-        {
-            /* Define routes for the application */
-            RootContainer.map((route) => (
-                <Route key={route.url} path={route.url} element={route.component} />
-            ))
-        }
-        <Route path="/dashboard/*" element={<DashboardLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="tasks" element={<Tasks />} />
-          <Route path="settings" element={<Setting />} />
-          <Route path="wallet" element={<Wallet />} />
-          <Route path="*" element={<PageNotFound />} /> {/* Fallback route for undefined paths */}
+
+        {/* PUBLIC ROUTES */}
+        <Route
+          path={AppRoutesUrl.Login}
+          element={
+            <Suspense fallback={<Spinner />}>
+              <Login />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path={AppRoutesUrl.Register}
+          element={
+            <Suspense fallback={<Spinner />}>
+              <Register />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path={AppRoutesUrl.ForgetPassword}
+          element={
+            <Suspense fallback={<Spinner />}>
+              <Forgetpassword />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path={AppRoutesUrl.ResetPassword}
+          element={
+            <Suspense fallback={<Spinner />}>
+              <Resetpassword />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path={AppRoutesUrl.verifyUser}
+          element={
+            <Suspense fallback={<Spinner />}>
+              <AccountVerify />
+            </Suspense>
+          }
+        />
+
+        {/* PROTECTED ROUTES */}
+        <Route
+          path="/dashboard/*"
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<Spinner />}>
+                <DashboardLayout />
+              </Suspense>
+            </ProtectedRoute>
+          }
+        >
+          <Route
+            index
+            element={
+              <Suspense fallback={<Spinner />}>
+                <Dashboard />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="tasks"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <Tasks />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="settings"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <Setting />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="wallet"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <Wallet />
+              </Suspense>
+            }
+          />
         </Route>
-        <Route path="*" element={<PageNotFound />} /> {/* Fallback route for undefined paths */}
+
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<Spinner />}>
+              <PageNotFound />
+            </Suspense>
+          }
+        />
+
       </Routes>
+
     </Router>
-  )
-}
+  );
+};
 
 export default AppRoutes;
