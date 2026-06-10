@@ -1,7 +1,7 @@
 import React from 'react';
 import LoginImg from '../assets/Login.png';
 import { Formik }from 'formik';
-import { loginSchema } from '../components/Auth/Login/schema';
+import { loginSchema } from '../utility/Schemas/Auth/Login/schema';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import { useLoginMutation } from '../features/auth/authApi';
 import { useNavigate } from 'react-router-dom';

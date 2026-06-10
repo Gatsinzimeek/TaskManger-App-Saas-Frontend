@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { resetPasswordSchema } from '../components/Auth/resetpassword/schema';
+import { resetPasswordSchema } from '../utility/Schemas/Auth/resetpassword/schema';
 import { FaArrowLeft, FaEnvelope } from 'react-icons/fa';
 import LoginImg from '../assets/Register.png';
 

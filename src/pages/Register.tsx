@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
-import { registerSchema } from "../components/Auth/Register/schema";
+import { registerSchema } from "../utility/Schemas/Auth/Register/schema";
 import registImg from "../assets/Register.png";
 import { useRegisterMutation } from "../features/auth/authApi";
 import { useNavigate } from "react-router-dom";
