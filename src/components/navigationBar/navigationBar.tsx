@@ -58,8 +58,8 @@ const NavigationBar: React.FC = () => {
         </button>
       </div>
       <div className={`absolute right-4 top-22 ${!showNotifications && userMenuOpen ? 'block' : 'hidden'} bg-white shadow-lg rounded-lg p-4 w-64`}>
-          <h4>Gatsinzi Ernest</h4>
-          <p className="text-gray-400 text-sm">gatsinzi.ernest@example.com</p>
+          <h4>Hi! {user.username}</h4>
+          <p className="text-gray-400 text-sm">{user.email}</p>
           
       </div>
     </div>
