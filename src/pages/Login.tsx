@@ -26,8 +26,10 @@ const Login: React.FC = () => {
     // 👇 SAVE USER
     localStorage.setItem("user", JSON.stringify(response.user));
       setTimeout(() => {
-        navigate('/dashboard');
-        }, 2000);
+        const redirectPath =  localStorage.getItem("redirectAfterLogin");
+
+          navigate(redirectPath || "/dashboard" );
+        }, 1000);
     } catch (error: any) {
       toast.error(error?.data?.message || 'error Occured during login try again later!');
     }

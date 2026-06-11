@@ -1,62 +1,26 @@
 import React from 'react'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
-import {
-  Dialog,
+import { Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  DialogTrigger, } from '../ui/dialog'
 
-import { Formik } from 'formik';
-import { toast } from 'react-toastify';
-import { Button } from '@/components/ui/button';
-import { newTaskSchema } from '@/utility/Schemas/Task/Newtask';
-import { FaPlus } from 'react-icons/fa';
-import { TbFileDescription } from "react-icons/tb";
-import { TbNotes } from "react-icons/tb";
-import { useGetTasksQuery,useCreateTaskMutation } from '@/features/task/taskApi';
-import { FaTrash } from 'react-icons/fa6';
-import { FaRegEdit } from "react-icons/fa";
-const Tasks: React.FC = () => {
+import { Formik } from 'formik'
+import 
 
+type Props = {
+    children: React.ReactNode;
 
-   const { data } = useGetTasksQuery();
-   const [createTask, {isLoading}] = useCreateTaskMutation();
-   
-  
-  const handleSubmit = async (value: any) => {
-    try {
-      const response = await createTask(value).unwrap();
-      if(response?.message){
-        toast.success(response.message);
-      }
-    } catch (error:any) {
-        toast.error(error?.data?.message || "error During create task");
+}
+
+const Edit:React.FC<Props>= (props) => {
+    const handleSubmit = () => {
+        console.log("hello");
     }
-  }
   return (
-    <div className="p-6">
-      <div className='flex justify-between mb-9 mt-3'>
-        <div className='text-gray-600'>
-            <h1>MANAGE TASKS</h1>
-            <p className='text-[10px]'>0rganize Your activity here!</p>
-        </div>
-        <div>
-          <Dialog>
+    <Dialog>
             <DialogTrigger asChild>
-            <Button className='bg-blue-400 p-6 hover:bg-blue-500 cursor-pointer'>
-                    <FaPlus size={10}/>
-                    <span>Create Task</span>
-                  </Button>
+                {props.children}
             </DialogTrigger>
 
             <DialogContent>
@@ -120,39 +84,7 @@ const Tasks: React.FC = () => {
                             </Formik>
             </DialogContent>
           </Dialog>
-        </div>
-      </div>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>No</TableHead>
-            <TableHead>Title</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead>status</TableHead>
-            <TableHead>Action</TableHead>
-          </TableRow>
-        </TableHeader>
+  )
+}
 
-        <TableBody>
-          {data?.Tasks?.map((task:any, index:number) => (
-            <TableRow key={index}>
-              <TableCell>{index}</TableCell>
-              <TableCell>{task?.title}</TableCell>
-              <TableCell>{task?.description}</TableCell>
-              <TableCell>{task?.status}</TableCell>
-              <TableCell className='flex items-center gap-3'>
-                  <FaRegEdit size={16} className='cursor-pointer text-blue-400'></FaRegEdit>
-                  <FaTrash className='text-red-400 cursor-pointer'></FaTrash>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
-  );
-};
-
-export default Tasks;
-
-//    
-                                // {isLoading ? "Loading..." : "Login"}
+export default Edit
