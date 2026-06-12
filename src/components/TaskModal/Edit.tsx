@@ -18,7 +18,7 @@ import { toast } from 'react-toastify';
 import { newTaskSchema } from '@/utility/Schemas/Task/Newtask';
 import { TbNotes } from 'react-icons/tb';
 import { TbFileDescription } from 'react-icons/tb';
-import { useGetTasksQuery, useUpdateTaskMutation } from '@/features/task/taskApi';
+import { useUpdateTaskMutation } from '@/features/task/taskApi';
 
 interface data {
   title: string,
@@ -120,8 +120,9 @@ const Edit:React.FC<Props>= (props) => {
                                       </Select>
                                   </div>        
                                   <button type="submit"
-                                // disabled={isLoading}
+                                disabled={isLoading}
                                 className={`bg-blue-500 cursor-pointer text-white py-2 px-4 ml-40 rounded-md w-[50%] mt-4
+                                 ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600 cursor-pointer"} 
                                   `}
                               >
                                 Update
@@ -136,5 +137,5 @@ const Edit:React.FC<Props>= (props) => {
 
 export default Edit;
 
-//${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600 cursor-pointer"}
+
                                  
