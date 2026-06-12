@@ -23,16 +23,20 @@ import { newTaskSchema } from '@/utility/Schemas/Task/Newtask';
 import { FaPlus } from 'react-icons/fa';
 import { TbFileDescription } from "react-icons/tb";
 import { TbNotes } from "react-icons/tb";
-import { useGetTasksQuery,useCreateTaskMutation } from '@/features/task/taskApi';
+import { useGetTasksQuery,useCreateTaskMutation, useDeleteTaskMutation } from '@/features/task/taskApi';
 import { FaTrash } from 'react-icons/fa6';
 import { FaRegEdit } from "react-icons/fa";
+import Edit from '@/components/TaskModal/Edit';
+import Delete from '@/components/TaskModal/Delete';
+
 const Tasks: React.FC = () => {
 
 
    const { data } = useGetTasksQuery();
    const [createTask, {isLoading}] = useCreateTaskMutation();
-   
+   const [deleteTask] = useDeleteTaskMutation();
   
+   // handler for creating task
   const handleSubmit = async (value: any) => {
     try {
       const response = await createTask(value).unwrap();
@@ -43,6 +47,29 @@ const Tasks: React.FC = () => {
         toast.error(error?.data?.message || "error During create task");
     }
   }
+
+  // handler for remove of Task function 
+  const handleDelete = async (id:string) => {
+      const removeTask = await deleteTask(id);
+      if(removeTask) {
+        toast.success('Task Delete sucessfully');
+      }
+  }
+
+  // changing of background color based on status we recive from server 
+
+  const changeBgcolorStatus = (status: string) => { 
+      switch(status) {
+        case "todo": 
+          return 'bg-lime-300'
+        case "inprogress": 
+          return 'bg-yellow-200'
+        case "completed": 
+        return 'bg-green-300'
+        default:  
+         return 'bg-gray-300'
+      }  
+  } 
   return (
     <div className="p-6">
       <div className='flex justify-between mb-9 mt-3'>
@@ -139,11 +166,15 @@ const Tasks: React.FC = () => {
               <TableCell>{index}</TableCell>
               <TableCell>{task?.title}</TableCell>
               <TableCell>{task?.description}</TableCell>
-              <TableCell>{task?.status}</TableCell>
+              <TableCell><span className={`${changeBgcolorStatus(task?.status)} rounded-xl p-1 pl-3 pr-3 text-gray-700`}>{task?.status}</span></TableCell>
               <TableCell className='flex items-center gap-3'>
-                  <FaRegEdit size={16} className='cursor-pointer text-blue-400'></FaRegEdit>
-                  <FaTrash className='text-red-400 cursor-pointer'></FaTrash>
-              </TableCell>
+                  <Edit task={task}>
+                       <FaRegEdit size={16} className='cursor-pointer text-blue-400'></FaRegEdit>
+                  </Edit>
+                  <Delete handleDelete={() => handleDelete(task._id)} >
+                    <FaTrash className='text-red-400 cursor-pointer'></FaTrash>
+                  </Delete>
+                 </TableCell>
             </TableRow>
           ))}
         </TableBody>

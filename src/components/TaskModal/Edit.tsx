@@ -3,20 +3,52 @@ import { Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger, } from '../ui/dialog'
+  DialogTrigger, } from '../ui/dialog';
+  import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-import { Formik } from 'formik'
-import 
+
+import { Formik } from 'formik';
+import { toast } from 'react-toastify';
+import { newTaskSchema } from '@/utility/Schemas/Task/Newtask';
+import { TbNotes } from 'react-icons/tb';
+import { TbFileDescription } from 'react-icons/tb';
+import { useGetTasksQuery, useUpdateTaskMutation } from '@/features/task/taskApi';
+
+interface data {
+  title: string,
+  description: string,
+  status?: string
+}
+
 
 type Props = {
     children: React.ReactNode;
-
+    task: any
 }
 
+
 const Edit:React.FC<Props>= (props) => {
-    const handleSubmit = () => {
-        console.log("hello");
+    
+
+       const [updateTask, {isLoading}] = useUpdateTaskMutation();
+// hander of Update of task
+
+  const handleEdit = async(id: string,Data: data) => {
+    try {
+      const response = await updateTask({id, ...Data}).unwrap();
+      
+        toast.success(response.message);
+    } catch (error: any) {
+        toast.error(error?.data?.message || "error During updating task"); 
     }
+  
+  }
   return (
     <Dialog>
             <DialogTrigger asChild>
@@ -25,14 +57,17 @@ const Edit:React.FC<Props>= (props) => {
 
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Create New Task</DialogTitle>
+                <DialogTitle>Edit  Task</DialogTitle>
               </DialogHeader>
                 <Formik
-                              initialValues={{ title: '', description: '' }}
-                              onSubmit={handleSubmit}
-                              validationSchema={newTaskSchema}
-                            >
-                              {({ values, handleChange, handleSubmit, isValid, errors }) => (
+                             enableReinitialize
+                             initialValues={{ title: props.task.title, description: props.task.description, status: props.task.status }}
+                              onSubmit={ (values) =>  {
+                                handleEdit(props.task._id, values)
+                                console.log(values);
+                               }}
+                              validationSchema={newTaskSchema}>
+                              {({ values, handleChange,setFieldValue, handleSubmit, isValid, errors }) => (
                                 <form onSubmit={(e) => {
                                   handleSubmit(e)
                                   if(!isValid) {
@@ -69,15 +104,27 @@ const Edit:React.FC<Props>= (props) => {
                                       />
                                     </div>
                                     
-                                  </div>         
-                                  <button
-                                type="submit"
-                                disabled={isLoading}
+                                  </div> 
+                                  <div className='flex justify-around items-center'>
+                                      <span>Status: </span>
+                                      <Select value={values.status} onValueChange={(values) => setFieldValue("status", values)}>
+                                        <SelectTrigger className="w-50">
+                                          <SelectValue placeholder="Select Status" />
+                                        </SelectTrigger>
+
+                                        <SelectContent>
+                                          <SelectItem value="todo">To Do</SelectItem>
+                                          <SelectItem value="inprogress">In Progress</SelectItem>
+                                          <SelectItem value="completed">Completed</SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                  </div>        
+                                  <button type="submit"
+                                // disabled={isLoading}
                                 className={`bg-blue-500 cursor-pointer text-white py-2 px-4 ml-40 rounded-md w-[50%] mt-4
-                                 ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600 cursor-pointer"}
                                   `}
                               >
-                                Save
+                                Update
                               </button>
                              </form>
                               )}
@@ -85,6 +132,9 @@ const Edit:React.FC<Props>= (props) => {
             </DialogContent>
           </Dialog>
   )
-}
+  }
 
-export default Edit
+export default Edit;
+
+//${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600 cursor-pointer"}
+                                 
