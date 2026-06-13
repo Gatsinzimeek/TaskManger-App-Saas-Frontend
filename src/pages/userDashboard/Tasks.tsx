@@ -155,6 +155,7 @@ const Tasks: React.FC = () => {
             <TableHead>No</TableHead>
             <TableHead>Title</TableHead>
             <TableHead>Description</TableHead>
+            <TableHead>Date</TableHead>
             <TableHead>status</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
@@ -166,6 +167,11 @@ const Tasks: React.FC = () => {
               <TableCell>{index}</TableCell>
               <TableCell>{task?.title}</TableCell>
               <TableCell>{task?.description}</TableCell>
+              <TableCell>{new Date(task?.createdAt).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })}</TableCell>
               <TableCell><span className={`${changeBgcolorStatus(task?.status)} rounded-xl p-1 pl-3 pr-3 text-gray-700`}>{task?.status}</span></TableCell>
               <TableCell className='flex items-center gap-3'>
                   <Edit task={task}>

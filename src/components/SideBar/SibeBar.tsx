@@ -28,7 +28,7 @@ const SideBar: React.FC = () => {
   const list: ListItem[] = [
     { name: 'Dashboard', link: '/dashboard', icon: <CiHome size={24} />, title: 'Dashboard' },
     { name: 'Tasks', link: '/dashboard/tasks', icon: <LuListTodo size={24} />, title: 'tasks' },
-    { name: 'My Wallet', link: '/dashboard/wallet', icon: <LuWallet size={24} />, title: 'wallet' },
+    { name: 'Subscription', link: '/dashboard/subscription', icon: <LuWallet size={24} />, title: 'wallet' },
     { name: 'Payments', link: '/dashboard/payment', icon: <IoFolderOpenOutline size={24} />, title: 'payments' },
     { name: 'Settings', link: '/dashboard/settings', icon: <HiOutlineCog6Tooth size={24} />, title: 'settings' },
  ];
