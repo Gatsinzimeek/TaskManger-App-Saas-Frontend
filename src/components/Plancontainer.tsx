@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaCheck } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
     title: string;
@@ -9,6 +10,7 @@ type Props = {
 }
 
 const Plancontainer:React.FC<Props> = (props) => {
+  const navigate = useNavigate();
   return (
     <div className='border text-[14px] text-gray-600   shadow-lg shadow-blue-500/20 rounded-2xl pt-10 p-10  bg-white'>
         <h1 className='text-lg text-blue-400'>{props.title}</h1>
@@ -30,9 +32,18 @@ const Plancontainer:React.FC<Props> = (props) => {
             ))
           }
         </div>
-        <button className='rounded-3xl bg-blue-400  text-white p-3 pl-4 pr-4 mt-5 cursor-pointer'>
+        {
+          props.title !== "Free Tier" ? (
+            <button className='rounded-3xl bg-blue-400  text-white p-3 pl-4 pr-4 mt-5 cursor-pointer' onClick={() => {
+          navigate(`/dashboard/initiatePayment?plan=${encodeURIComponent(props.title)}&price=${props.money}`)
+        }}>
           Get Started
         </button>
+          ) : (
+            <></>
+          )
+        }
+        
     </div>
   )
 }

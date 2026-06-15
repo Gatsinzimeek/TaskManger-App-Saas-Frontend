@@ -18,6 +18,7 @@ const Tasks = lazy(() => import("../pages/userDashboard/Tasks"));
 const PaymentStatement = lazy(() => import("../pages/userDashboard/PaymentStatement"));
 const Setting = lazy(() => import("../pages/userDashboard/Setting"));
 const Subscription = lazy(() => import("../pages/userDashboard/Subscription"));
+const InitiatePayment = lazy(() => import("../pages/userDashboard/InitiatePayment"));
 const DashboardLayout = lazy(() => import("../components/DashboardLayout"));
 
 const AppRoutes: FC = () => {
@@ -124,6 +125,14 @@ const AppRoutes: FC = () => {
             element={
               <Suspense fallback={<Spinner />}>
                 <Subscription />
+              </Suspense>
+            }
+          />
+          <Route
+            path="initiatePayment"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <InitiatePayment />
               </Suspense>
             }
           />

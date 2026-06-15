@@ -92,7 +92,7 @@ const Login: React.FC = () => {
             </Formik>
           </div>
           <div className='max-md:hidden'>
-            <img src={LoginImg} alt="Login" className=" w-[500px] object-cover" draggable='false'/>
+            <img src={LoginImg} alt="Login" className=" w-125 object-cover" draggable='false'/>
           </div>
     </div>
   )
