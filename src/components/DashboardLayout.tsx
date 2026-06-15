@@ -11,14 +11,17 @@ type Props = {
 const DashboardLayout: React.FC <Props> = () => {
   return (
     <>
-        <div className="flex bg-gray-50">
-            <SideBar />
-            <div className='flex-1 flex flex-col min-h-screen max-sm:w-[88%]'>
-                <NavigationBar />
+    <div className="bg-gray-50 min-h-screen">
+        <SideBar />
+
+        <div className="ml-64 max-sm:ml-20">
+            <NavigationBar />
+
+            <main className="pt-24 p-6">
                 <Outlet />
-                {/* <Footer /> */}
-            </div>
+            </main>
         </div>
+    </div>
     </>
   )
 }

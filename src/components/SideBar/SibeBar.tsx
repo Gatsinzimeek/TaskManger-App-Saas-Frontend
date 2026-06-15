@@ -1,6 +1,5 @@
 import React from 'react'
-import { CiHome } from "react-icons/ci";
-import { LuWallet } from "react-icons/lu";
+import { CiHome,CiCreditCard1 } from "react-icons/ci";
 import { LuListTodo } from "react-icons/lu";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
@@ -28,13 +27,12 @@ const SideBar: React.FC = () => {
   const list: ListItem[] = [
     { name: 'Dashboard', link: '/dashboard', icon: <CiHome size={24} />, title: 'Dashboard' },
     { name: 'Tasks', link: '/dashboard/tasks', icon: <LuListTodo size={24} />, title: 'tasks' },
-    { name: 'Subscription', link: '/dashboard/subscription', icon: <LuWallet size={24} />, title: 'wallet' },
+    { name: 'Subscription', link: '/dashboard/subscription', icon: <CiCreditCard1 size={24} />, title: 'subscription' },
     { name: 'Payments', link: '/dashboard/payment', icon: <IoFolderOpenOutline size={24} />, title: 'payments' },
     { name: 'Settings', link: '/dashboard/settings', icon: <HiOutlineCog6Tooth size={24} />, title: 'settings' },
  ];
   return (
-    <div className='w-64 bg-white text-gray-500 pt-4 h-screen flex flex-col text-center max-sm:w-[12%]'>
-        <div className='flex ml-4 items-center max-sm:m-auto'>
+   <div className='fixed left-0 top-0 w-64 h-screen bg-white text-gray-500 pt-4 flex flex-col text-center border-r z-50 max-sm:w-[80px]'>       <div className='flex ml-4 items-center max-sm:m-auto'>
           <img src={logo} alt="Logo" className='w-16 rounded-2xl max-sm:w-20' />
           
           <div className='max-sm:hidden'>

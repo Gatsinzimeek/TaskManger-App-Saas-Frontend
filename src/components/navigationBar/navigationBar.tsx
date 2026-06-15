@@ -34,8 +34,7 @@ const NavigationBar: React.FC = () => {
   }
 
   return (
-    <div className='flex relative justify-between items-center p-4 bg-white text-black pt-12 pb-8 h-16 w-full shadow-sm'>
-        <h1 className='text-xl  font-light'>{name.toLocaleUpperCase()}</h1>
+    <div className='fixed top-0 left-64 right-0 flex justify-between items-center p-4 bg-white text-black h-20 shadow-sm z-40 max-sm:left-[80px]'>        <h1 className='text-md text-gray-600 font-light'>{name.toLocaleUpperCase()}</h1>
         <div className='flex items-center gap-4'>
           <div className="relative max-md:hidden "><input type="text" placeholder="Search..." className='bg-gray-50 text-gray-400 placeholder:text-gray-400 focus:outline-none pl-10 w-[260px] rounded-xl p-2' /><button className='cursor-pointer'><FaSearch className='absolute left-5 top-1/2 transform -translate-y-1/2 font-bold text-blue-500' /></button></div>
             <span className='cursor-pointer relative' onClick={toggleNotifications}>
