@@ -4,7 +4,7 @@ import Plancontainer from '@/components/Plancontainer'
 const Subscription:React.FC = () => {
   const ourPlan = [
   {
-    title: 'Free Tier',
+    title: 'FREE',
     description: 'Experience the excellence of our services with a handful of small projects.',
     money: 0,
     offeringList: [
@@ -18,7 +18,7 @@ const Subscription:React.FC = () => {
 
   },
   {
-    title: 'Premium Tier',
+    title: 'MEDIUM',
     description: 'Ideal for burgeoning startups seeking continuous design assistance.',
     money: 50,
     offeringList: [
@@ -31,7 +31,7 @@ const Subscription:React.FC = () => {
     ]
   },
   {
-    title: 'Pro Tier',
+    title: 'PREMIUM',
     description: 'Ideal choice for agencies that are committed to providing top-notch service to their clients.',
     money: 100,
     offeringList: [

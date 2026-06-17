@@ -33,7 +33,7 @@ const Plancontainer:React.FC<Props> = (props) => {
           }
         </div>
         {
-          props.title !== "Free Tier" ? (
+          props.title !== "FREE" ? (
             <button className='rounded-3xl bg-blue-400  text-white p-3 pl-4 pr-4 mt-5 cursor-pointer' onClick={() => {
           navigate(`/dashboard/initiatePayment?plan=${encodeURIComponent(props.title)}&price=${props.money}`)
         }}>

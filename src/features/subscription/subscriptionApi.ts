@@ -1,12 +1,10 @@
-// src/redux/api/subscriptionApi.ts
-
-import { apiSlice } from "./apiSlice";
-import {
+import { apiSlice } from "../api/apiSlice"
+import type {
   SubscribeRequest,
   SubscribeResponse,
   VerifyPaymentRequest,
   VerifyPaymentResponse,
-} from "@/types/subscription";
+} from "../../types/subscription";
 
 export const subscriptionApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

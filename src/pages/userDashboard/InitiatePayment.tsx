@@ -6,13 +6,55 @@ import { Formik } from 'formik';
 import { paymentSchema } from '@/utility/Schemas/Payment/schema';
 import airtel from '../../assets/Airtel.png'
 import Mtn from '../../assets/Mtn.jpeg';
+import { useSubscribeMutation } from '@/features/subscription/subscriptionApi';
 const InitiatePayment:React.FC = () => {
   const paymentMethods = [
-  { id: "airtel", image: airtel, alt: "Airtel" },
-  { id: "mtn", image: Mtn, alt: "MTN" },
-];
-const [selectedMethod, setSelectedMethod] = useState("");
+    { id: "airtel", image: airtel, alt: "Airtel" },
+    { id: "mtn", image: Mtn, alt: "MTN" },
+  ];
+  const [subscribe, { isLoading }] =
+  useSubscribeMutation();
+  const [selectedMethod, setSelectedMethod] = useState("");
   const navigate = useNavigate();
+
+  const handlesubmit = async (value : any) => {
+    try {
+      if (!selectedMethod) {
+        toast.error("Please select payment method");
+        return;
+      }
+
+      const plan =
+        new URLSearchParams(
+          window.location.search
+        ).get("plan");
+
+      if (!plan) {
+        toast.error("Plan not found");
+        return;
+      }
+
+    const response = await subscribe({
+      plan,
+      phone_number: value.phone,
+      channel_name: selectedMethod,
+    }).unwrap();
+
+    localStorage.setItem(
+      "transaction_id",
+      response.transaction_id
+    );
+
+    toast.success(response.message);
+
+  } catch (error: any) {
+    toast.error(
+      error?.data?.message ??
+      "Payment initiation failed"
+    );
+  }
+  
+  }
   return (
     <div className='relative flex justify-around mt-2 items-center max-lg:block'>
 
@@ -60,7 +102,7 @@ const [selectedMethod, setSelectedMethod] = useState("");
           </div>
          <Formik
                       initialValues={{ phone: ''}}
-                      onSubmit={() => {console.log('helo')}}
+                      onSubmit={(values) => handlesubmit(values)}
                       validationSchema={paymentSchema}
                     >
                       {({ values, handleChange, handleSubmit, isValid, errors }) => (
@@ -86,11 +128,11 @@ const [selectedMethod, setSelectedMethod] = useState("");
                           
                           <button
                         type="submit"
-                        // disabled={isLoading}
+                        disabled={isLoading}
                         className={`bg-blue-500 text-white py-2 px-4 rounded-md w-full mt-4 cursor-pointer
                            `}
                         >
-                        {/* {isLoading ? "Loading..." : "Login"} */} Subscribe
+                        {isLoading ? "Processing..." : "Subscribe"} 
                        </button>
                       </form>
                       
