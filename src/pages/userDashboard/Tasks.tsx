@@ -1,3 +1,4 @@
+
 import React from 'react'
 import {
   Table,
@@ -43,8 +44,8 @@ const Tasks: React.FC = () => {
       if(response?.message){
         toast.success(response.message);
       }
-    } catch (error:any) {
-        toast.error(error?.data?.message || "error During create task");
+    } catch (error) {
+        toast.error((error as any)?.data?.message || "error During create task");
     }
   }
 

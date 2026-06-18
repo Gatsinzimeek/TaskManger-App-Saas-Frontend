@@ -3,7 +3,7 @@ import { apiSlice } from "../api/apiSlice";
 export const taskApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
 
-    getTasks: builder.query({
+    getTasks: builder.query<any,void>({
       query: () => "/get-tasks",
       providesTags: ["Tasks"],
     }),

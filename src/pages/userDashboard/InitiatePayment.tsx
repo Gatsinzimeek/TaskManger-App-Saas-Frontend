@@ -7,13 +7,13 @@ import { paymentSchema } from '@/utility/Schemas/Payment/schema';
 import airtel from '../../assets/Airtel.png'
 import Mtn from '../../assets/Mtn.jpeg';
 import { useSubscribeMutation } from '@/features/subscription/subscriptionApi';
+import { formatRwandanPhone } from '@/utility/validatephone';
 const InitiatePayment:React.FC = () => {
   const paymentMethods = [
-    { id: "airtel", image: airtel, alt: "Airtel" },
-    { id: "mtn", image: Mtn, alt: "MTN" },
+    { id: "AIRTEL_MONEY", image: airtel, alt: "Airtel" },
+    { id: "MOMO", image: Mtn, alt: "MTN" },
   ];
-  const [subscribe, { isLoading }] =
-  useSubscribeMutation();
+  const [subscribe, { isLoading }] = useSubscribeMutation();
   const [selectedMethod, setSelectedMethod] = useState("");
   const navigate = useNavigate();
 
@@ -36,16 +36,13 @@ const InitiatePayment:React.FC = () => {
 
     const response = await subscribe({
       plan,
-      phone_number: value.phone,
+      phone_number: formatRwandanPhone(value.phone),
       channel_name: selectedMethod,
     }).unwrap();
 
-    localStorage.setItem(
-      "transaction_id",
-      response.transaction_id
-    );
-
+    
     toast.success(response.message);
+    navigate("/dashboard/payment-status");
 
   } catch (error: any) {
     toast.error(
@@ -102,7 +99,7 @@ const InitiatePayment:React.FC = () => {
           </div>
          <Formik
                       initialValues={{ phone: ''}}
-                      onSubmit={(values) => handlesubmit(values)}
+                      onSubmit={(values) => { handlesubmit(values); console.log(values.phone)}}
                       validationSchema={paymentSchema}
                     >
                       {({ values, handleChange, handleSubmit, isValid, errors }) => (
@@ -117,9 +114,9 @@ const InitiatePayment:React.FC = () => {
                           <div className="relative">
                             <FaPhoneAlt className="absolute left-3 top-3 text-gray-500" />          
                             <input
-                              type="number"
+                              type="text"
                               name="phone"
-                              placeholder="Phone number"
+                              placeholder="e.g. 078xxxxxxx"
                               value={values.phone}
                               onChange={handleChange}
                               className="border border-gray-300 rounded-md pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"

@@ -12,11 +12,3 @@ export interface SubscribeResponse {
   transaction_id: string;
   data: unknown;
 }
-
-export interface VerifyPaymentRequest {
-  transaction_id: string;
-}
-
-export interface VerifyPaymentResponse {
-  message: string;
-}

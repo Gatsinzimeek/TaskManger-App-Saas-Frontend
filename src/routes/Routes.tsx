@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Spinner from "../components/spinner";
 import { AppRoutesUrl } from "../utility/AppRoutesUrl";
 import ProtectedRoute from "../pages/ProtectRoute";
+import PaymentStatus from "@/pages/userDashboard/PaymentStatus";
 
 //  LAZY LOADED PAGES
 const Login = lazy(() => import("../pages/Login"));
@@ -135,6 +136,10 @@ const AppRoutes: FC = () => {
                 <InitiatePayment />
               </Suspense>
             }
+          />
+          <Route
+            path="payment-status"
+            element={<PaymentStatus />}
           />
         </Route>
 

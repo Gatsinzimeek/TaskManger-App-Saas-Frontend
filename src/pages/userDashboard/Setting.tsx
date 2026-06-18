@@ -1,8 +1,13 @@
 import React from 'react'
 
-const Setting = () => {
+const Setting: React.FC = () => {
   return (
-    <div>Setting</div>
+    <div>
+      <h1>Profile Account </h1>
+      <div>
+        
+      </div>
+    </div>
   )
 }
 
