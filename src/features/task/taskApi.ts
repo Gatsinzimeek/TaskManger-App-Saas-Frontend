@@ -3,11 +3,13 @@ import { apiSlice } from "../api/apiSlice";
 export const taskApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
 
-    getTasks: builder.query<any,void>({
-      query: () => "/get-tasks",
+   getTasks: builder.query<any, string>({
+      query: (status = "all") => ({
+        url: `/get-tasks?status=${status}`,
+        method: "GET",
+      }),
       providesTags: ["Tasks"],
     }),
-
     createTask: builder.mutation({
       query: (data) => ({
         url: "/create-tasks",

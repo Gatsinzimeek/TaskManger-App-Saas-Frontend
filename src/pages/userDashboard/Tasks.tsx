@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Table,
   TableBody,
@@ -17,6 +17,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { Formik } from 'formik';
 import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
@@ -31,12 +39,18 @@ import Edit from '@/components/TaskModal/Edit';
 import Delete from '@/components/TaskModal/Delete';
 
 const Tasks: React.FC = () => {
-
-
-   const { data } = useGetTasksQuery();
+  
+    const [selectedStatus, setSelectedStatus] = useState("all");
+   const { data } = useGetTasksQuery(selectedStatus);
    const [createTask, {isLoading}] = useCreateTaskMutation();
    const [deleteTask] = useDeleteTaskMutation();
   
+    const filteredTasks = data?.Tasks?.filter((task: any) => {
+      if (selectedStatus === "all") return true;
+
+      return task.status === selectedStatus;
+    });
+
    // handler for creating task
   const handleSubmit = async (value: any) => {
     try {
@@ -150,6 +164,23 @@ const Tasks: React.FC = () => {
           </Dialog>
         </div>
       </div>
+      <div className="flex gap-4 items-center">
+        <Select
+          value={selectedStatus}
+          onValueChange={(value) => setSelectedStatus(value)}
+        >
+          <SelectTrigger className="w-45">
+            <SelectValue placeholder="Filter Status" />
+          </SelectTrigger>
+
+          <SelectContent>
+            <SelectItem value="all">All Tasks</SelectItem>
+            <SelectItem value="todo">Todo</SelectItem>
+            <SelectItem value="inprogress">In Progress</SelectItem>
+            <SelectItem value="completed">Completed</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
       <Table>
         <TableHeader>
           <TableRow>
@@ -163,7 +194,7 @@ const Tasks: React.FC = () => {
         </TableHeader>
 
         <TableBody>
-          {data?.Tasks?.map((task:any, index:number) => (
+          {filteredTasks?.map((task: any, index: number) =>  (
             <TableRow key={index}>
               <TableCell>{index}</TableCell>
               <TableCell>{task?.title}</TableCell>
