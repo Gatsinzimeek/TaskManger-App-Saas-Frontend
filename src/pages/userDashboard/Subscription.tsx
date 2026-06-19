@@ -2,48 +2,50 @@ import React from 'react'
 import Plancontainer from '@/components/Plancontainer'
 
 const Subscription:React.FC = () => {
-  const ourPlan = [
+ const ourPlan = [
   {
-    title: 'FREE',
-    description: 'Experience the excellence of our services with a handful of small projects.',
+    title: "FREE",
+    description:
+      "Perfect for individuals who want to organize their daily activities and manage a limited number of tasks at no cost.",
     money: 0,
     offeringList: [
-      'One request at a time',
-      'Two weeks design sprint',
-      'Unlimited requests & revisions',
-      'Up to 1 meeting per week',
-      'Dev ready Figma files',
-      'Unlimited Stock Photos'
+      "Up to 10 active tasks",
+      "Create, edit, and delete tasks",
+      "Task status tracking",
+      "Dashboard overview",
+      "Basic task management tools",
+      "Email account support"
     ]
-
   },
   {
-    title: 'MEDIUM',
-    description: 'Ideal for burgeoning startups seeking continuous design assistance.',
+    title: "MEDIUM",
+    description:
+      "Designed for professionals and students who need more task capacity and better productivity management.",
+    money: 20,
+    offeringList: [
+      "Up to 100 active tasks",
+      "Unlimited task updates",
+      "Advanced dashboard statistics",
+      "Task filtering by status",
+      "Priority customer support",
+      "Faster performance and scalability"
+    ]
+  },
+  {
+    title: "PREMIUM",
+    description:
+      "Best choice for power users, teams, and businesses that require extensive task management capabilities.",
     money: 50,
     offeringList: [
-      'One request at a time',
-      'Two weeks design sprint',
-      'Unlimited requests & revisions',
-      'Up to 1 meeting per week',
-      'Dev ready Figma files',
-      'Unlimited Stock Photos'
-    ]
-  },
-  {
-    title: 'PREMIUM',
-    description: 'Ideal choice for agencies that are committed to providing top-notch service to their clients.',
-    money: 100,
-    offeringList: [
-      'One request at a time',
-      'Two weeks design sprint',
-      'Unlimited requests & revisions',
-      'Up to 1 meeting per week',
-      'Dev ready Figma files',
-      'Unlimited Stock Photos'
+      "Unlimited active tasks",
+      "Unlimited task creation and updates",
+      "Advanced analytics dashboard",
+      "Priority processing",
+      "Premium customer support",
+      "Access to future premium features"
     ]
   }
-]
+];
   return (
     <div className='flex flex-col gap-4  mt-10 items-center '>
         <h1 className='text-2xl '>Plan & Pricing</h1>

@@ -44,7 +44,7 @@ const Tasks: React.FC = () => {
    const { data } = useGetTasksQuery(selectedStatus);
    const [createTask, {isLoading}] = useCreateTaskMutation();
    const [deleteTask] = useDeleteTaskMutation();
-  
+  const [open, setOpen] = useState(false);
     const filteredTasks = data?.Tasks?.filter((task: any) => {
       if (selectedStatus === "all") return true;
 
@@ -52,16 +52,23 @@ const Tasks: React.FC = () => {
     });
 
    // handler for creating task
-  const handleSubmit = async (value: any) => {
-    try {
-      const response = await createTask(value).unwrap();
-      if(response?.message){
-        toast.success(response.message);
+  const handleSubmit = async (
+      values: any,
+      resetForm: () => void
+    ) => {
+      try {
+        const response = await createTask(values).unwrap();
+
+        toast.success(response?.message || "Task created successfully");
+
+        resetForm();
+        setOpen(false); // close dialog
+      } catch (error: any) {
+        toast.error(
+          error?.data?.message || "Error during create task"
+        );
       }
-    } catch (error) {
-        toast.error((error as any)?.data?.message || "error During create task");
-    }
-  }
+    };
 
   // handler for remove of Task function 
   const handleDelete = async (id:string) => {
@@ -93,7 +100,7 @@ const Tasks: React.FC = () => {
             <p className='text-[10px]'>0rganize Your activity here!</p>
         </div>
         <div>
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
             <Button className='bg-blue-400 p-6 hover:bg-blue-500 cursor-pointer'>
                     <FaPlus size={10}/>
@@ -105,11 +112,16 @@ const Tasks: React.FC = () => {
               <DialogHeader>
                 <DialogTitle>Create New Task</DialogTitle>
               </DialogHeader>
-                <Formik
-                              initialValues={{ title: '', description: '' }}
-                              onSubmit={handleSubmit}
-                              validationSchema={newTaskSchema}
-                            >
+               <Formik
+                          initialValues={{
+                            title: "",
+                            description: "",
+                          }}
+                          validationSchema={newTaskSchema}
+                          onSubmit={(values, { resetForm }) =>
+                            handleSubmit(values, resetForm)
+                          }
+                        >
                               {({ values, handleChange, handleSubmit, isValid, errors }) => (
                                 <form onSubmit={(e) => {
                                   handleSubmit(e)

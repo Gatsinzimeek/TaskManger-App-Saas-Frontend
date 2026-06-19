@@ -19,6 +19,12 @@ export const taskApi = apiSlice.injectEndpoints({
       invalidatesTags: ["Tasks"],
     }),
 
+    dashboardStats: builder.query<any, void>({
+      query: () => ({
+        url: "/dashboard-stats",
+        method: "GET",
+      }),
+    }),
     updateTask: builder.mutation({
       query: ({ id, ...data }) => ({
         url: `/update-task/${id}`,
@@ -41,6 +47,7 @@ export const taskApi = apiSlice.injectEndpoints({
 
 export const {
   useGetTasksQuery,
+  useDashboardStatsQuery,
   useCreateTaskMutation,
   useUpdateTaskMutation,
   useDeleteTaskMutation,
